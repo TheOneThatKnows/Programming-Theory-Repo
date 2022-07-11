@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Car : Vehicle
 {
+    // INHERITANCE
+
     private float horizontalInput;
 
     void FixedUpdate()

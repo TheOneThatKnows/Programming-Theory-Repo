@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject yearFieldPanel;
     [SerializeField] private TMP_InputField yearField;
     [SerializeField] private TMP_Text yearText;
+    [SerializeField] private AudioClip[] horns;
 
     private int vTyoe;
     private GameObject vehicle;
@@ -23,23 +24,31 @@ public class GameManager : MonoBehaviour
     private float zPos;
     private float zPosGround;
 
+    private AudioSource audio;
+
     public bool gameIsActive;
 
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
+
         gameIsActive = true;
 
+        // ABSTRACTION
         VehicleInstantiate();
 
+        // ABSTRACTION
         InitialAdjustments();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // ABSTRACTION
         CloudTransform();
 
+        // ABSTRACTION
         GroundTransform();
     }
 
@@ -112,6 +121,19 @@ public class GameManager : MonoBehaviour
 
         yearText.gameObject.SetActive(true);
         gameIsActive = true;
+    }
+
+    public void Horn()
+    {
+        if (vTyoe == 0)
+        {
+            audio.clip = horns[planeObject.Horn()];
+        }
+        else
+        {
+            audio.clip = horns[carObject.Horn()];
+        }
+        audio.Play();
     }
 
     public void ReturnToMenu()

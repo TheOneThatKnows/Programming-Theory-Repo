@@ -7,6 +7,7 @@ public class Vehicle : MonoBehaviour
     protected float speed = 0.4f;
     protected float rotationSpeed = 20.0f;
 
+    // ENCAPSULATION
     private float year;
     public float Year
     {
@@ -27,15 +28,14 @@ public class Vehicle : MonoBehaviour
         }
     }
 
-    private GameManager gm;
-
-    private void Start()
-    {
-        gm = GameObject.Find("Game Manager").GetComponent<GameManager>();
-    }
-
     void FixedUpdate()
     {
         transform.Translate(Vector3.forward * speed);
+    }
+
+    // POLYMORPHISM
+    public virtual int Horn()
+    {
+        return 1;
     }
 }

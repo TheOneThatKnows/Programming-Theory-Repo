@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Plane : Vehicle
 {
+    // INHERITANCE
+
     private float verticalInput;
 
     void FixedUpdate()
@@ -16,5 +18,12 @@ public class Plane : Vehicle
 
         // tilt the plane up/down based on up/down arrow keys
         transform.Rotate(Vector3.left, rotationSpeed * Time.deltaTime * verticalInput);
+    }
+
+    // POLYMORPHISM
+    public override int Horn()
+    {
+        Debug.Log("Why would an airplane need a horn? That's why.");
+        return 0;
     }
 }
