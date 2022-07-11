@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Car : Vehicle
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float horizontalInput;
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        // get the user's horizontal input
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        // move the plane forward at a constant rate
+        transform.Translate(Vector3.forward * speed);
+
+        // turn the car left/right based on left/right arrow keys
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime * horizontalInput);
     }
 }

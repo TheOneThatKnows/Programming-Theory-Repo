@@ -4,23 +4,38 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    public float speed = 5.0f;
+    protected float speed = 0.4f;
+    protected float rotationSpeed = 20.0f;
 
-    // Start is called before the first frame update
-    void Start()
+    private float year;
+    public float Year
     {
-        
+        get
+        {
+            return year;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                Debug.LogError("Year of the vehicle cannot be a negative number");
+            }
+            else
+            {
+                year = value;
+            }
+        }
+    }
+
+    private GameManager gm;
+
+    private void Start()
+    {
+        gm = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     void FixedUpdate()
     {
-        // get the user's vertical input
-        // verticalInput = Input.GetAxis("Vertical");
-
-        // move the plane forward at a constant rate
         transform.Translate(Vector3.forward * speed);
-
-        // tilt the plane up/down based on up/down arrow keys
-        // transform.Rotate(Vector3.left, rotationSpeed * Time.deltaTime * verticalInput);
     }
 }

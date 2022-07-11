@@ -29,7 +29,5 @@ public class MainManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        // LoadRecord();
     }
 }

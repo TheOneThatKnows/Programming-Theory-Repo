@@ -5,13 +5,6 @@ using UnityEngine;
 public class Plane : Vehicle
 {
     private float verticalInput;
-    private float rotationSpeed;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void FixedUpdate()
     {
