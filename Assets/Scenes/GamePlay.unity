@@ -433,6 +433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce143f9f9dd121c4c8b17f4aaa5339e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicles:
+  - {fileID: 5462050096469153156, guid: af29f0ea7e5403641b3b244ede69c374, type: 3}
+  - {fileID: -5621737016061432840, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
   car: {fileID: -5621737016061432840, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
   plane: {fileID: 5462050096469153156, guid: af29f0ea7e5403641b3b244ede69c374, type: 3}
   ground: {fileID: 570228213}

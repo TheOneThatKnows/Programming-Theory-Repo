@@ -7,6 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Vehicle[] vehicles;
     [SerializeField] private Car car;
     [SerializeField] private Plane plane;
     [SerializeField] private GameObject ground;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip[] horns;
 
     private int vTyoe;
-    private GameObject vehicle;
+    private Vehicle vehicle;
     private Plane planeObject;
     private Car carObject;
     private GameObject cloudObject;
@@ -55,22 +56,13 @@ public class GameManager : MonoBehaviour
     public void VehicleInstantiate()
     {
         vTyoe = MainManager.Instance.VehicleType;
-
-        if (vTyoe == 0)
-        {
-            planeObject = Instantiate(plane);
-            ground.gameObject.SetActive(false);
-        }
-        else
-        {
-            carObject = Instantiate(car);
-            ground.gameObject.SetActive(true);
-        }
+        vehicle = Instantiate(vehicles[vTyoe]);
+        ground.gameObject.SetActive(vTyoe == 1);
     }
 
     public void InitialAdjustments()
     {
-        vehicle = GameObject.FindGameObjectWithTag("Vehicle");
+
         zPos = vehicle.transform.position.z + 30;
         zPosGround = vehicle.transform.position.z + 90;
         cloudObject = Instantiate(cloud, vehicle.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 10, 10), cloud.transform.rotation);
@@ -81,10 +73,7 @@ public class GameManager : MonoBehaviour
         if (vehicle.transform.position.z > zPos)
         {
             zPos = vehicle.transform.position.z + 30;
-            if (vTyoe == 0)
-                cloudObject.transform.position = vehicle.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(0, 10.0f), 20);
-            else
-                cloudObject.transform.position = vehicle.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 10, 20);
+            cloudObject.transform.position = vehicle.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), (1 - vTyoe) * Random.Range(0, 10.0f) + vTyoe * 10, 20);
         }
     }
 
@@ -106,11 +95,7 @@ public class GameManager : MonoBehaviour
     public void OK()
     {
         float yearOfVehicle = float.Parse(yearField.text);
-
-        if (vTyoe == 0)
-            planeObject.Year = yearOfVehicle;
-        else
-            carObject.Year = yearOfVehicle;
+        vehicle.Year = yearOfVehicle;
 
         if (yearOfVehicle < 0)
             yearText.text = "Year cannot be negative";
@@ -125,14 +110,8 @@ public class GameManager : MonoBehaviour
 
     public void Horn()
     {
-        if (vTyoe == 0)
-        {
-            audio.clip = horns[planeObject.Horn()];
-        }
-        else
-        {
-            audio.clip = horns[carObject.Horn()];
-        }
+        audio.clip = horns[vehicle.Horn()];
+
         audio.Play();
     }
 
